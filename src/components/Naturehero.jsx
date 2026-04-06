@@ -42,7 +42,6 @@ const slides = [
 
 const SLIDE_DURATION = 5000;
 
-// Shared transition — slow, ease-out, calm
 const FADE_TRANSITION = {
   duration: 1.2,
   ease: [0.4, 0, 0.2, 1],
@@ -54,15 +53,12 @@ const TEXT_TRANSITION = (delay = 0) => ({
   delay,
 });
 
-// Image variants — fade + very subtle scale
-// Image variants — slides in from LEFT, exits to RIGHT
-// Image variants — enters from RIGHT, exits to LEFT
 const imageVariants = {
-  hidden: { opacity: 0, x: "60vw" }, // starts from right of screen
-  visible: { opacity: 1, x: 0 }, // lands in left half
-  exit: { opacity: 0, x: "-60vw" }, // exits to left
+  hidden: { opacity: 0, x: "60vw" },
+  visible: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: "-60vw" },
 };
-// Text variants — slides in from RIGHT, exits to LEFT
+
 const textVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
@@ -95,7 +91,7 @@ export default function HeroAyurvedaSlider() {
   const slide = slides[current];
 
   return (
-    <section className="relative h-[100vh] overflow-hidden font-sans bg-[#f5f3ef]">
+    <section className="relative h-auto lg:h-[100vh] py-16 lg:py-0 overflow-hidden font-sans bg-[#f5f3ef]">
       {/* Google Fonts */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Jost:wght@300;400;500&display=swap');
@@ -107,17 +103,20 @@ export default function HeroAyurvedaSlider() {
           to   { width: 100%; }
         }
       `}</style>
-      <div className="absolute top-[14%] right-[8%] max-w-[260px] pointer-events-none">
+
+      {/* Quote — hidden on mobile, visible on desktop */}
+      <div className="hidden lg:block absolute top-[14%] right-[8%] max-w-[260px] pointer-events-none">
         <p
           className="font-cormorant italic text-[14px] leading-6 opacity-90"
           style={{ color: "#5a7a4a" }}
         >
-          “In Ayurveda, balance is not something you find — it is something you
-          cultivate.”
+          "In Ayurveda, balance is not something you find — it is something you
+          cultivate."
         </p>
       </div>
 
-      <div className="absolute left-12 top-1/2 -translate-y-1/2 rotate-[-90deg] origin-left">
+      {/* Rotated sidebar label — hidden on mobile */}
+      <div className="hidden lg:block absolute left-12 top-1/2 -translate-y-1/2 rotate-[-90deg] origin-left">
         <p className="font-jost text-[10px] tracking-[0.3em] text-[#5a7a4a] opacity-90 uppercase">
           Ayurveda • Since 5000 Years
         </p>
@@ -139,10 +138,143 @@ export default function HeroAyurvedaSlider() {
         className="absolute bottom-0 right-0 w-full opacity-25 z-0 pointer-events-none"
       />
 
-      {/* Main layout */}
-      <div className="relative z-10 h-full flex items-center justify-center gap-10 px-[8%]">
+      {/* ─── MOBILE LAYOUT (< lg) ─── */}
+      <div className="lg:hidden relative z-10 flex flex-col items-center px-6 pt-6 pb-20">
+        {/* Image */}
+        <div className="relative w-[320px] flex items-center justify-center h-[260px] mb-6 overflow-hidden">
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={`img-mob-${current}`}
+              variants={imageVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={FADE_TRANSITION}
+              className="absolute flex items-center justify-center w-[250px] h-full"
+            >
+              <motion.img
+                src={slide.image}
+                alt="Ayurveda herbs"
+                style={{
+                  transform: `translateY(${slide.offsetY}) scale(${slide.scale})`,
+                }}
+                className="max-h-full max-w-full object-contain"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Text */}
+        <div className="w-full text-center">
+          <AnimatePresence mode="wait">
+            <motion.div key={`text-mob-${current}`} className="flex flex-col items-center">
+              {/* Label */}
+              <motion.p
+                variants={textVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={TEXT_TRANSITION(0)}
+                className="font-jost text-[10px] tracking-[0.18em] uppercase mb-2 font-medium"
+                style={{ color: slide.accent }}
+              >
+                {slide.label}
+              </motion.p>
+
+              {/* Heading */}
+              <motion.h1
+                variants={textVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={TEXT_TRANSITION(0.12)}
+                className="font-cormorant font-normal leading-[1.2] text-[#3d2f2f] m-0 text-[36px]"
+              >
+                {slide.heading[0]}
+                <br />
+                <span style={{ color: slide.accent }} className="italic">
+                  {slide.heading[1]}
+                </span>
+              </motion.h1>
+
+              {/* Sub */}
+              <motion.p
+                variants={textVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={TEXT_TRANSITION(0.24)}
+                className="font-jost mt-3 text-sm leading-7 text-[#6b6b6b] max-w-[340px] font-light"
+              >
+                {slide.sub}
+              </motion.p>
+
+              {/* CTA + dots */}
+              <motion.div
+                variants={textVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={TEXT_TRANSITION(0.36)}
+                className="flex items-center justify-center gap-5 mt-6"
+              >
+                <motion.button
+                  onClick={() => {
+                    const section = document.getElementById("categories");
+                    if (section) section.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.2 }}
+                  className="font-jost px-6 py-3 rounded-[2px] text-white text-[11px] tracking-[0.14em] uppercase font-medium cursor-pointer border-none"
+                  style={{
+                    background: slide.accent,
+                    boxShadow: `0 4px 16px ${slide.accent}33`,
+                  }}
+                >
+                  {slide.cta}
+                </motion.button>
+
+                {/* Pill dots */}
+                <div className="flex items-center gap-2">
+                  {slides.map((_, i) => (
+                    <motion.button
+                      key={i}
+                      onClick={() => goTo(i)}
+                      animate={{
+                        width: i === current ? 26 : 8,
+                        background:
+                          i === current ? slide.accent : slide.dotInactive,
+                      }}
+                      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                      className="h-2 rounded-[2px] border-none cursor-pointer p-0"
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Divider quote — mobile only */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          className="flex items-center gap-4 w-full mt-8 px-2"
+        >
+          <div className="flex-1 h-[1px] bg-[#d6e5d9]" />
+          <p className="font-cormorant italic text-[#5a7a4a] text-[12px] tracking-wide whitespace-nowrap text-center">
+            Rooted in Nature • Refined by Ayurveda
+          </p>
+          <div className="flex-1 h-[1px] bg-[#d6e5d9]" />
+        </motion.div>
+      </div>
+
+      {/* ─── DESKTOP LAYOUT (lg+) — UNCHANGED ─── */}
+      <div className="hidden lg:flex relative z-10 h-full items-center justify-center gap-10 px-[8%]">
         {/* LEFT — Image */}
-        <div className="w-[45%] relative flex items-center justify-center h-[70%] ">
+        <div className="w-[45%] relative flex items-center justify-center h-[70%]">
           <AnimatePresence mode="sync">
             <motion.div
               key={`img-${current}`}
@@ -260,18 +392,18 @@ export default function HeroAyurvedaSlider() {
           </AnimatePresence>
         </div>
       </div>
+
+      {/* Bottom divider — desktop only */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.6 }}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-6 w-full max-w-8xl px-[8%]"
+        className="hidden lg:flex absolute bottom-16 left-1/2 -translate-x-1/2 items-center gap-6 w-full max-w-8xl px-[8%]"
       >
         <div className="flex-1 h-[1px] bg-[#d6e5d9]" />
-
         <p className="font-cormorant italic text-[#5a7a4a] text-[14px] tracking-wide whitespace-nowrap text-center">
           Rooted in Nature • Refined by Ayurveda
         </p>
-
         <div className="flex-1 h-[1px] bg-[#d6e5d9]" />
       </motion.div>
 

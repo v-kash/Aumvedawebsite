@@ -14,10 +14,12 @@ export default function WhyAumveda() {
       <div className="absolute bottom-10 left-10 w-52 h-52 bg-[#e8ddd0] blur-3xl opacity-40 rounded-full" />
 
       {/* 🔥 SAME TOP LABEL */}
-      <div className="absolute left-4 md:left-16 top-10 z-10 pointer-events-none">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-[1px] bg-[#5a7a4a]/40" />
-          <p className="font-cormorant text-[14px] tracking-[0.5em] text-[#5a7a4a] uppercase">
+      <div className="absolute left-1/2 -translate-x-1/2 md:left-16 md:translate-x-0 mt- md:mt-0 top-10 z-10 pointer-events-none">
+        <div className="flex items-center justify-center gap-2 md:gap-4">
+          <div className="w-6 md:w-10 h-[1px] bg-[#5a7a4a]/40" />
+
+          <p className="font-cormorant text-[12px] md:text-[14px] tracking-[0.2em] md:tracking-[0.5em] text-[#5a7a4a] uppercase whitespace-nowrap text-center">
+
             Why Us
           </p>
           <div className="w-10 h-[1px] bg-[#5a7a4a]/40" />
@@ -49,7 +51,7 @@ export default function WhyAumveda() {
           {/* accent line */}
 
           {/* heading */}
-          <h2 className="font-cormorant text-[38px] md:text-[54px] leading-[1.2] text-[#3d2f2f]">
+          <h2 className="font-cormorant text-[38px] mt-6 md:mt-0 md:text-[54px] leading-[1.2] text-[#3d2f2f]">
             Why Aumveda{" "}
           </h2>
 

@@ -140,7 +140,7 @@ export default function WhatWeOffer() {
           viewport={{ once: true }}
           className="flex flex-col items-center text-center mb-12 "
         >
-          <h2 className="mt-4 md:mt-0 font-cormorant text-[24px] md:text-[54px] leading-[1.2] text-[#3d2f2f] max-w-[700px]">
+          <h2 className="mt-6 md:mt-0 font-cormorant text-[24px] md:text-[54px] leading-[1.2] text-[#3d2f2f] max-w-[700px]">
             Our Categories
           </h2>
 

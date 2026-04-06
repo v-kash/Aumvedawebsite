@@ -18,25 +18,18 @@ export default function AboutSection() {
       <div className="absolute top-20 left-10 w-40 h-40 bg-[#dceadf] blur-3xl opacity-50 rounded-full" />
       <div className="absolute bottom-10 right-10 w-52 h-52 bg-[#dceadf] blur-3xl opacity-40 rounded-full" />
 
-      <div className="absolute left-4 md:left-16 top-10 z-10 pointer-events-none">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-[1px] bg-[#5a7a4a]/40"></div>
+      <div className="absolute left-1/2 -translate-x-1/2 md:left-16 md:translate-x-0 top-10 md:top-10 z-20 pointer-events-none">
+        <div className="flex items-center gap-3 justify-center md:justify-start">
+          <div className="w-8 md:w-10 h-[1px] bg-[#5a7a4a]/40"></div>
 
-          <p className="font-cormorant text-[14px] tracking-[0.5em] text-[#5a7a4a] uppercase">
+          <p className="font-cormorant text-[12px] md:text-[14px] tracking-[0.4em] md:tracking-[0.5em] text-[#5a7a4a] uppercase whitespace-nowrap">
             About
           </p>
 
-          <div className="w-10 h-[1px] bg-[#5a7a4a]/40"></div>
+          <div className="w-8 md:w-10 h-[1px] bg-[#5a7a4a]/40"></div>
         </div>
       </div>
-      {/* 🌿 LEAF BACKGROUND (FIXED POSITION) */}
-      {/* <div className="absolute top-0 left-0 opacity-[0.3] pointer-events-none">
-  <img
-    src="/leaf_transparent.png"
-    className="w-[300px] md:w-[950px] -translate-x-1/3 -translate-y-1/4 rotate-[120deg]"
-  />
-</div> */}
-      <div className="relative z-10 flex flex-col md:flex-row items-center gap-20">
+      <div className="relative z-10 flex flex-col md:flex-row items-center gap-20 pt-12">
         {/* LEFT — IMAGE COMPOSITION */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -114,9 +107,15 @@ export default function AboutSection() {
 
               <p>
                 We connect you with
-                <span >
+                <span>
                   {" "}
-                  <span className="text-[#5a7a4a] font-medium">authentic Ayurvedic</span> and <span className="text-[#5a7a4a] font-medium">natural products</span>{" "}
+                  <span className="text-[#5a7a4a] font-medium">
+                    authentic Ayurvedic
+                  </span>{" "}
+                  and{" "}
+                  <span className="text-[#5a7a4a] font-medium">
+                    natural products
+                  </span>{" "}
                 </span>
                 carefully sourced from trusted producers across India.
               </p>
