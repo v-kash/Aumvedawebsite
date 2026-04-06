@@ -1,0 +1,348 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+// ─── Lotus SVG ornament ────────────────────────────────────────────────────
+function Lotus({ size = 80, color = "#4a7c59", opacity = 1 }) {
+  const c = size / 2;
+  const outerPetals = Array.from({ length: 8 }, (_, i) => (
+    <g key={i} transform={`rotate(${i * 45} ${c} ${c})`}>
+      <path
+        d={`M${c},${c - size * 0.15} C${c + size * 0.09},${c - size * 0.44} ${c + size * 0.05},${c - size * 0.46} ${c},${c - size * 0.48} C${c - size * 0.05},${c - size * 0.46} ${c - size * 0.09},${c - size * 0.44} ${c},${c - size * 0.15}Z`}
+        fill={color}
+        opacity={0.2 + (i % 2) * 0.08}
+      />
+    </g>
+  ));
+  const innerPetals = Array.from({ length: 8 }, (_, i) => (
+    <g key={i} transform={`rotate(${i * 45 + 22.5} ${c} ${c})`}>
+      <path
+        d={`M${c},${c - size * 0.13} C${c + size * 0.06},${c - size * 0.3} ${c + size * 0.03},${c - size * 0.33} ${c},${c - size * 0.35} C${c - size * 0.03},${c - size * 0.33} ${c - size * 0.06},${c - size * 0.3} ${c},${c - size * 0.13}Z`}
+        fill={color}
+        opacity={0.38}
+      />
+    </g>
+  ));
+  const dotRing = Array.from({ length: 12 }, (_, i) => {
+    const a = (i * 30 * Math.PI) / 180;
+    return (
+      <circle
+        key={i}
+        cx={c + Math.cos(a) * size * 0.21}
+        cy={c + Math.sin(a) * size * 0.21}
+        r={size * 0.02}
+        fill={color}
+        opacity={0.55}
+      />
+    );
+  });
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ opacity, display: "block" }}>
+      <circle cx={c} cy={c} r={size * 0.48} fill="none" stroke={color} strokeWidth={0.5} opacity={0.14} />
+      <circle cx={c} cy={c} r={size * 0.38} fill="none" stroke={color} strokeWidth={0.4} opacity={0.1} />
+      {outerPetals}
+      {innerPetals}
+      {dotRing}
+      <circle cx={c} cy={c} r={size * 0.1} fill={color} opacity={0.45} />
+      <circle cx={c} cy={c} r={size * 0.055} fill={color} opacity={0.85} />
+    </svg>
+  );
+}
+
+// ─── Lotus line divider ────────────────────────────────────────────────────
+function LotusDivider({ color = "#7a9e76", width = 200 }) {
+  const h = 24, cx = width / 2;
+  const petals = [0, 45, 90, 135, 180, 225, 270, 315].map((a) => {
+    const rad = (a * Math.PI) / 180;
+    const px = cx + Math.cos(rad) * 8, py = h / 2 + Math.sin(rad) * 8;
+    return (
+      <path
+        key={a}
+        d={`M${cx},${h / 2} Q${(cx + px) / 2 + Math.cos(rad + Math.PI / 2) * 2.5},${(h / 2 + py) / 2 + Math.sin(rad + Math.PI / 2) * 2.5} ${px},${py}`}
+        fill="none" stroke={color} strokeWidth={0.65} opacity={0.55}
+      />
+    );
+  });
+  return (
+    <svg width={width} height={h} viewBox={`0 0 ${width} ${h}`} style={{ display: "block" }}>
+      <line x1={0} y1={h / 2} x2={cx - 18} y2={h / 2} stroke={color} strokeWidth={0.7} opacity={0.45} />
+      <line x1={cx + 18} y1={h / 2} x2={width} y2={h / 2} stroke={color} strokeWidth={0.7} opacity={0.45} />
+      <path d={`M${cx - 36},${h / 2} Q${cx - 30},${h / 2 - 6} ${cx - 22},${h / 2}`} fill="none" stroke={color} strokeWidth={0.8} opacity={0.5} />
+      <path d={`M${cx - 36},${h / 2} Q${cx - 30},${h / 2 + 6} ${cx - 22},${h / 2}`} fill="none" stroke={color} strokeWidth={0.8} opacity={0.5} />
+      <path d={`M${cx + 36},${h / 2} Q${cx + 30},${h / 2 - 6} ${cx + 22},${h / 2}`} fill="none" stroke={color} strokeWidth={0.8} opacity={0.5} />
+      <path d={`M${cx + 36},${h / 2} Q${cx + 30},${h / 2 + 6} ${cx + 22},${h / 2}`} fill="none" stroke={color} strokeWidth={0.8} opacity={0.5} />
+      {petals}
+      <circle cx={cx} cy={h / 2} r={1.8} fill={color} opacity={0.7} />
+    </svg>
+  );
+}
+
+// ─── Corner mandala ────────────────────────────────────────────────────────
+function CornerMandala({ size = 88, color = "#7a9e76", opacity = 0.2 }) {
+  const c = size / 2;
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ opacity, display: "block" }}>
+      {[0.92, 0.72, 0.52].map((r, i) => (
+        <circle key={i} cx={c} cy={c} r={(size / 2) * r} fill="none" stroke={color} strokeWidth={0.5} />
+      ))}
+      {Array.from({ length: 12 }, (_, i) => {
+        const a = (i * 30 * Math.PI) / 180;
+        return (
+          <line key={i} x1={c} y1={c}
+            x2={c + Math.cos(a) * (size / 2) * 0.92}
+            y2={c + Math.sin(a) * (size / 2) * 0.92}
+            stroke={color} strokeWidth={0.4}
+          />
+        );
+      })}
+      {Array.from({ length: 8 }, (_, i) => {
+        const a = (i * 45 * Math.PI) / 180;
+        return (
+          <circle key={i}
+            cx={c + Math.cos(a) * (size / 2) * 0.72}
+            cy={c + Math.sin(a) * (size / 2) * 0.72}
+            r={2} fill={color}
+          />
+        );
+      })}
+      <circle cx={c} cy={c} r={4} fill="none" stroke={color} strokeWidth={0.8} />
+      <circle cx={c} cy={c} r={2} fill={color} />
+    </svg>
+  );
+}
+
+// ─── Main Hero ─────────────────────────────────────────────────────────────
+const FONT = "Helvetica Neue, Helvetica, Arial, sans-serif";
+
+export default function HeroAyurveda() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setShow(true), 80);
+    return () => clearTimeout(t);
+  }, []);
+
+  // fade-up for text elements
+  const fadeUp = (delay) => ({
+    opacity: show ? 1 : 0,
+    transform: show ? "translateY(0px)" : "translateY(20px)",
+    transition: `opacity 0.9s cubic-bezier(.22,1,.36,1) ${delay}s, transform 0.9s cubic-bezier(.22,1,.36,1) ${delay}s`,
+  });
+
+  // pure fade for image elements
+  const fadeOnly = (delay) => ({
+    opacity: show ? 1 : 0,
+    transition: `opacity 1.3s ease ${delay}s`,
+  });
+
+  return (
+    <section style={{
+      minHeight: "100vh",
+      background: "#f6f2eb",
+      display: "flex",
+      flexDirection: "row",
+      overflow: "hidden",
+      position: "relative",
+      fontFamily: FONT,
+    }}>
+      <style>{`
+        @keyframes slowSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes floatBob { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-8px)} }
+        @keyframes lineGrow { from{transform:scaleY(0);transform-origin:top} to{transform:scaleY(1);transform-origin:top} }
+        @keyframes imgReveal{ from{clip-path:inset(0 100% 0 0)} to{clip-path:inset(0 0% 0 0)} }
+      `}</style>
+
+      {/* subtle paper dot texture */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage: "radial-gradient(#3d5c3a 1px, transparent 1px)",
+        backgroundSize: "24px 24px", opacity: 0.033,
+      }} />
+
+      {/* corner mandalas — left side only */}
+      <div style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
+        <CornerMandala size={92} color="#7a9e76" opacity={0.2} />
+      </div>
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, pointerEvents: "none",
+        transform: "rotate(90deg)", transformOrigin: "bottom left",
+      }}>
+        <CornerMandala size={70} color="#7a9e76" opacity={0.14} />
+      </div>
+
+      {/* ══════════ LEFT — text panel ══════════ */}
+      <div style={{
+        width: "50%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "60px 6% 60px 8%",
+        position: "relative",
+        zIndex: 2,
+      }}>
+
+        {/* vertical rule */}
+        <div style={{
+          position: "absolute", left: 0, top: "14%", bottom: "14%", width: "1.5px",
+          background: "linear-gradient(to bottom, transparent, #a8c4a0 30%, #a8c4a0 70%, transparent)",
+          animation: show ? "lineGrow 1.3s cubic-bezier(.22,1,.36,1) 0.2s both" : "none",
+        }} />
+
+        {/* eyebrow — lotus + label */}
+        <div style={{
+          display: "flex", alignItems: "center", gap: 10,
+          marginBottom: 34, ...fadeUp(0.28),
+        }}>
+          <Lotus size={20} color="#4a7c59" opacity={0.88} />
+          <span style={{
+            fontSize: 9, fontWeight: 400,
+            letterSpacing: "0.28em", textTransform: "uppercase", color: "#5a8a56",
+          }}>
+            Ancient Ayurvedic Wisdom
+          </span>
+        </div>
+
+        {/* headline */}
+        <h1 style={{ margin: "0 0 2px", fontSize: "clamp(32px, 3.8vw, 58px)", fontWeight: 300, lineHeight: 1.16, letterSpacing: "-0.025em", color: "#243323", fontFamily: FONT, ...fadeUp(0.44) }}>
+          Rooted in
+        </h1>
+        <h1 style={{ margin: "0 0 2px", fontSize: "clamp(32px, 3.8vw, 58px)", fontWeight: 100, lineHeight: 1.16, letterSpacing: "-0.03em", color: "#4a7c59", fontStyle: "italic", fontFamily: FONT, ...fadeUp(0.56) }}>
+          nature's intelligence
+        </h1>
+        <h1 style={{ margin: "0 0 28px", fontSize: "clamp(32px, 3.8vw, 58px)", fontWeight: 300, lineHeight: 1.16, letterSpacing: "-0.025em", color: "#243323", fontFamily: FONT, ...fadeUp(0.68) }}>
+          since antiquity
+        </h1>
+
+        {/* lotus divider */}
+        <div style={{ marginBottom: 28, ...fadeUp(0.80) }}>
+          <LotusDivider color="#7a9e76" width={200} />
+        </div>
+
+        {/* body copy */}
+        <p style={{
+          margin: "0 0 10px", fontSize: 13, fontWeight: 300,
+          lineHeight: 1.88, color: "#5c7859", maxWidth: 320, fontFamily: FONT,
+          ...fadeUp(0.92),
+        }}>
+          Authentic plant-based formulations drawn from 5,000 years of Ayurvedic tradition — crafted to restore balance in body, mind, and spirit.
+        </p>
+
+        {/* sanskrit hint */}
+        <p style={{
+          margin: "0 0 44px", fontSize: 12, fontWeight: 300,
+          fontStyle: "italic", color: "#9ab896", letterSpacing: "0.02em", fontFamily: FONT,
+          ...fadeUp(1.04),
+        }}>
+          "Sarve bhavantu sukhinah" — may all beings be well
+        </p>
+
+        {/* CTAs */}
+        <div style={{ display: "flex", gap: 16, alignItems: "center", marginBottom: 56, ...fadeUp(1.16) }}>
+          <button style={{
+            background: "transparent", border: "1px solid #243323",
+            color: "#243323", padding: "12px 32px",
+            fontFamily: FONT, fontSize: 10, fontWeight: 400,
+            letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer",
+          }}>
+            Explore Collection
+          </button>
+          <span style={{
+            fontSize: 13, fontWeight: 300, fontStyle: "italic",
+            color: "#9ab896", cursor: "pointer", fontFamily: FONT,
+          }}>
+            Our heritage →
+          </span>
+        </div>
+
+        {/* stats */}
+        <div style={{ display: "flex", gap: 40, ...fadeUp(1.30) }}>
+          {[["5000+", "Years of wisdom"], ["100%", "Organic herbs"], ["84", "Formulations"]].map(([n, l]) => (
+            <div key={l}>
+              <div style={{ fontSize: 26, fontWeight: 200, color: "#243323", letterSpacing: "-0.02em", fontFamily: FONT }}>{n}</div>
+              <div style={{ fontSize: 8, fontWeight: 400, letterSpacing: "0.22em", textTransform: "uppercase", color: "#9ab896", marginTop: 4, fontFamily: FONT }}>{l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* bottom line */}
+        <div style={{
+          position: "absolute", bottom: 26, left: "8%",
+          fontSize: 8, fontWeight: 400, letterSpacing: "0.3em",
+          textTransform: "uppercase", color: "#b4c8b0", fontFamily: FONT,
+          ...fadeUp(1.5),
+        }}>
+          Sattvic · Pranic · Dharmic
+        </div>
+      </div>
+
+      {/* ══════════ RIGHT — images only, no SVG ══════════ */}
+      <div style={{
+        width: "50%",
+        position: "relative",
+        overflow: "hidden",
+        minHeight: "100vh",
+      }}>
+
+        {/* main tall image — slides in from right */}
+        <div style={{
+          position: "absolute",
+          right: "8%", top: "6%",
+          width: "60%", height: "64%",
+          overflow: "hidden",
+          animation: show ? "imgReveal 1.5s cubic-bezier(.22,1,.36,1) 0.5s both" : "none",
+          zIndex: 1,
+        }}>
+          <img
+            src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&q=85"
+            alt="Ayurvedic herbs"
+            style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.72) sepia(0.1)" }}
+          />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to bottom, transparent 55%, rgba(38,22,8,0.18))",
+          }} />
+        </div>
+
+        {/* second image — offset bottom left, fades in */}
+        <div style={{
+          position: "absolute",
+          left: "3%", bottom: "8%",
+          width: "44%", height: "47%",
+          overflow: "hidden",
+          border: "8px solid #f6f2eb",
+          zIndex: 2,
+          animation: show ? "imgReveal 1.5s cubic-bezier(.22,1,.36,1) 0.9s both" : "none",
+        }}>
+          <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80"
+            alt="Herbal ceremony"
+            style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.68) sepia(0.08)" }}
+          />
+        </div>
+
+        {/* floating text badge — pure HTML, no SVG */}
+        <div style={{
+          position: "absolute",
+          right: "6%", bottom: "20%",
+          background: "#f6f2eb",
+          border: "1px solid #c4d8be",
+          padding: "16px 22px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 6,
+          zIndex: 3,
+          animation: show ? "floatBob 5s ease-in-out 2.2s infinite" : "none",
+          ...fadeOnly(1.5),
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 300, fontStyle: "italic", color: "#243323", fontFamily: FONT }}>
+            Certified Organic
+          </div>
+          <div style={{ width: 28, height: "1px", background: "#c4d8be" }} />
+          <div style={{ fontSize: 7, fontWeight: 400, letterSpacing: "0.22em", textTransform: "uppercase", color: "#9ab896", fontFamily: FONT }}>
+            Ayurvedic Guild
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

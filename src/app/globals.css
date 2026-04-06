@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  
+
+  /* Helvetica stack — system font, no download needed */
+  --font-helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-helvetica);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* no dark mode override — hero uses its own light green palette */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-helvetica);
+  -webkit-font-smoothing: antialiased;
+}
