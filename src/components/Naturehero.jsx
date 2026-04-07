@@ -48,7 +48,7 @@ const FADE_TRANSITION = {
 };
 
 const TEXT_TRANSITION = (delay = 0) => ({
-  duration: 0.9,
+  duration: 0.5,
   ease: [0.4, 0, 0.2, 1],
   delay,
 });
