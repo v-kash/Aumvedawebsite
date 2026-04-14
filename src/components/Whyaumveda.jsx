@@ -52,7 +52,7 @@ export default function WhyAumveda() {
 
           {/* heading */}
           <h2 className="font-cormorant text-[38px] mt-6 md:mt-0 md:text-[54px] leading-[1.2] text-[#3d2f2f]">
-            Why Aumveda{" "}
+            Why Aumveda Wellness{" "}
           </h2>
 
           {/* paragraph */}

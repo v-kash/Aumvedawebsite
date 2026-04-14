@@ -55,7 +55,7 @@ export default function Footer() {
                 color: "#f0ece4",
               }}
             >
-              Aumveda
+              Aumveda Wellness
             </h2>
             <p className="text-sm text-[#c9c4bb] leading-relaxed max-w-xs mx-auto md:mx-0">
               Rooted in tradition, refined for modern living. Bringing authentic
@@ -160,7 +160,7 @@ export default function Footer() {
 
         {/* 🔻 BOTTOM LINE */}
         <div className="mt-10 md:mt-12 py-5 md:py-6 border-t border-[#ffffff20] text-center text-[11px] md:text-xs text-[#9a9a9a] px-2">
-          © {new Date().getFullYear()} Aumveda. All rights reserved.
+          © {new Date().getFullYear()} Aumveda Wellness. All rights reserved.
         </div>
       </div>
     </footer>

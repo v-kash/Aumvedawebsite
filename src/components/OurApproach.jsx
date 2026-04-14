@@ -10,7 +10,7 @@ const approach = [
     title: ["Curated", "Selection"],
     desc: "Every product is carefully chosen from trusted producers to ensure authenticity and quality.",
     sub: "Focused on purity, sourcing integrity, and alignment with natural living.",
-    image: "/veda1.jpg",
+    image: "/veda4.jpg",
   },
   {
     num: "02",

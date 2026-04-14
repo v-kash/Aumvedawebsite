@@ -50,7 +50,7 @@ export default function OurStorySplit() {
               text-[14px] sm:text-[15px]
               leading-7 text-[#6b6b6b] mb-6 font-light"
             >
-              Aumveda was founded to make authentic, natural wellness accessible
+              Aumveda Wellness was founded to make authentic, natural wellness accessible
               in today’s world. In a space filled with uncertainty, we bring
               clarity through transparent, trusted Ayurvedic products. We work
               closely with traditional producers, farmers, and artisans to

@@ -48,7 +48,7 @@ const offerings = [
   },
   {
     tag: "Eco Living",
-    title: "Eco-Friendly Lifestyle",
+    title: "Eco Friendly Lifestyle",
     desc: "Thoughtfully designed products including clothing, furniture, and jewellery that promote sustainability and conscious living.",
     image: "/eco-lifestyle.jpg",
     bullets: [

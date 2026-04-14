@@ -98,7 +98,7 @@ export default function OurImpactSplit() {
 
             <p className="font-jost text-[16px] leading-8 text-[#6b6b6b] mb-10 font-light max-w-[620px]">
               Every purchase you make contributes to something bigger.
-              At Aumveda, we are building a system where wellness supports
+              At Aumveda Wellness, we are building a system where wellness supports
               not just individuals, but entire communities and ecosystems.
             </p>
 

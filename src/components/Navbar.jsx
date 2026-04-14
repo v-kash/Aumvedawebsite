@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
@@ -82,7 +83,7 @@ export default function NavbarVeda() {
 
         .veda-brand {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 24px;
+          font-size: 22px;
           letter-spacing: 0.35em;
           color: #1f2f1f;
           text-transform: uppercase;
@@ -106,17 +107,17 @@ export default function NavbarVeda() {
         }
       `}</style>
 
-<header
-  className={`veda-header ${
-    scrolled || isAboutPage ? " scrolled" : ""
-  }`}
->        <div
+      <header
+        className={`veda-header ${scrolled || isAboutPage ? " scrolled" : ""}`}
+      >
+        {" "}
+        <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             gap: 24,
-            padding: "24px 6%",
+            padding: "2px 6%",
           }}
         >
           {/* LEFT */}
@@ -129,10 +130,16 @@ export default function NavbarVeda() {
 
           <LeafDivider side="right" />
 
-          {/* CENTER BRAND (FIXED ALIGNMENT) */}
-          <Link href="/" className="veda-brand">
-            Aumveda
-          </Link>
+          <Link href="/" className="veda-brand flex items-center justify-center">
+  <Image
+    src="/logo2.png"
+    alt="Aumveda Wellness"
+    width={140}
+    height={40}
+    className="h-[28px] lg:h-[70px] w-auto object-contain"
+    priority
+  />
+</Link>
 
           <LeafDivider side="left" />
 
@@ -144,7 +151,6 @@ export default function NavbarVeda() {
             About
           </Link>
         </div>
-
         {/* Bottom line */}
         <div
           style={{

@@ -32,7 +32,7 @@ export default function AboutHero() {
         >
           {/* Heading */}
           <h1 className="font-cormorant text-[26px] sm:text-[36px] leading-[1.2] text-white mb-3 sm:mb-4">
-            Aumveda
+            Aumveda Wellness
             <br />
             <span className="italic text-[#d6e5d9]">
               “Nature, in Its Purest Form”
