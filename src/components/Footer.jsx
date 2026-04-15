@@ -12,9 +12,9 @@ import Image from "next/image";
 
 export default function Footer() {
   const socialIcons = [
-    { icon: FaInstagram, link: "#" },
-    { icon: FaLinkedinIn, link: "#" },
-    { icon: FaFacebookF, link: "#" },
+    { icon: FaInstagram, link: "https://www.instagram.com/aumvedawellnessllp/" },
+    // { icon: FaLinkedinIn, link: "#" },
+    // { icon: FaFacebookF, link: "#" },
     { icon: FaWhatsapp, link: "https://wa.me/919000006000" },
   ];
 
@@ -108,8 +108,8 @@ export default function Footer() {
             >
               <MapPin size={28} className="text-[#a8c49a]" />
               <p>
-                1-8-15/2FF8-1, Bhavani Nagar Colony Main Road, beside ETDC, Near
-                Gknilayam, Telangana, Hyderabad, 500062
+                1-8-15/2FF8-1, North Kamala Nagar
+                Gk nilayam, Telangana, Hyderabad, 500062
               </p>
             </a>
 
