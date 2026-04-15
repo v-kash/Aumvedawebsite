@@ -116,8 +116,8 @@ export default function NavbarVeda() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+             padding: "6px 6%",
             gap: 24,
-            padding: "2px 6%",
           }}
         >
           {/* LEFT */}
@@ -132,11 +132,11 @@ export default function NavbarVeda() {
 
           <Link href="/" className="veda-brand flex items-center justify-center">
   <Image
-    src="/logo2.png"
+    src="/logo3.png"
     alt="Aumveda Wellness"
     width={140}
     height={40}
-    className="h-[28px] lg:h-[70px] w-auto object-contain"
+    className="h-[28px] lg:h-[70px] w-auto lg:w-[150px] object-contain  "
     priority
   />
 </Link>
