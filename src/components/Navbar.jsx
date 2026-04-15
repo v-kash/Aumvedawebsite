@@ -136,7 +136,7 @@ export default function NavbarVeda() {
     alt="Aumveda Wellness"
     width={140}
     height={40}
-    className="h-[28px] lg:h-[70px] w-auto lg:w-[150px] object-contain  "
+    className="h-[54px] lg:h-[70px] w-auto lg:w-[150px] object-contain  "
     priority
   />
 </Link>
